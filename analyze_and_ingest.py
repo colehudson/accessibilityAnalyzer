@@ -15,8 +15,9 @@ import argparse
 
 
 parser = argparse.ArgumentParser(description='analyzes the wave and w3c APIs and ingests responses into Solr')
-parser.add_argument('-f','--file', help='required-name of csv file', type=str)
+parser.add_argument('-f','--file', help='--required-name of csv file', required=True, type=str)
 parser.add_argument('-c','--core', help='--required-name of Solr core', required=True, type=str)
+parser.add_argument('-k','--key', help='--required-WAVE API key', required=True, type=str)
 parser.add_argument('-u','--username', help='--optional-username for Solr user', type=str)
 parser.add_argument('-p','--password', help='--optional-password for Solr user', type=str)
 parser.add_argument('-d','--directory', help='--optional-specify name of overarching directory for your data', type=str)
@@ -27,6 +28,7 @@ core = args['core']
 username = args['username']
 password = args['password']
 directory = args['directory']
+wave_key = args['key']
 
 # FUNCTIONS
 def convert(input):
@@ -116,7 +118,7 @@ with open(csv_file, 'rU') as f:
 			time.sleep(1)
 
 			print "Querying Wave API for data about "+url
-			wave = requests.get("http://wave.webaim.org/api/request?key=ndb38wCF181&url="+url+"&reporttype=2")
+			wave = requests.get("http://wave.webaim.org/api/request?key="+wave_key+"&url="+url+"&reporttype=2")
 			wave = wave.json()
 			save(wave, 'wave', lib_name, directory, subdirectory)
 			wave = flatten(convert(wave))
