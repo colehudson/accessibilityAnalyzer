@@ -9,5 +9,7 @@ Run through a command-line environment, this Python-based script takes a list of
 
 ## Technical Environment:
 Server with command-line access.
+
 Python (with a variety of packages).
+
 Apache Solr
